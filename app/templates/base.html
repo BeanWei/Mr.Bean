@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+{% block title %}
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        {% if title %}
+            {{ title }} - Mr.Bean
+        {% else %}
+            {{ Welcome to Mr.Bean }}
+        {% endif %}
+        <link rel="shortcut icon" href="/static/image/favicon.ico">
+        <link rel="stylesheet" type="text/css" href="/static/css/flickity.css"/>
+        <link rel="stylesheet" type="text/css" href="/static/css/main.css"/>
+        <link rel="stylesheet" type="text/css" href="/static/css/font-awesome.min.css"/>
+        <script src="/static/js/modernizr.custom.js"></script>
+        <style>
+            .hero > div {
+                background: #212121 url(/static/image/bg.jpg) no-repeat 50% 0;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+            }
+        </style>
+        <img class="loader" src="../static/image/three-dots.svg" width="60" alt="Loader image"/>
+    </head>
+{% endblock %}
+<body>
+    <div class="hero">
+        <div class="hero__back hero__back--static"></div>
+        <div class="hero__back hero__back--mover"></div>
+        <div class="hero__front"></div>
+    </div>
+    <header class="codrops-header">
+        <div class="codrops-links">
+            <a class="codrops-icon codrops-icon--prev"></a>
+            <a class="codrops-icon codrops-icon--drop"></a>
+        </div>
+        <h1 class="codrops-title">Mr.Bean's  <span>Photography</span></h1>
+        <nav class="menu">
+            <a class="menu__item menu__item--current" href="#"><span>Work</span></a>
+            <a class="menu__item" href="#"><span>Contact</span></a>
+            <a class="menu__item" href="/admin"><span>Admin</span></a>
+        </nav>
+    </header>
+    {% block content %}{% endblock %}
+    {% block footer %}{% endblock %}
+</body>
+{% block scripts %}
+    <script src="/static/js/flickity.pkgd.min.js"></script>
+    <script src="/static/js/smoothscroll.js"></script>
+    <script src="/static/js/main.js"></script>
+{% endblock %}
+</html>
