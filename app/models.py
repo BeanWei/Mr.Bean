@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 
 class PhotoGroup(db.Model):
     """摄影集数据模型"""
+    __tablename__ = 'photogroup'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(128), index=True, unique=True)
     ctime = db.Column(db.DateTime, index=True, default=datetime.utcnow)
@@ -23,6 +24,7 @@ photos_tags_table = db.Table(
 
 class Photo(db.Model):
     """照片数据模型"""
+    __tablename__ = 'photo'
     id = db.Column(db.Integer, primary_key=True)
     img_upload = db.Column(db.String(128))
     img_title = db.Column(db.String(128))
@@ -42,6 +44,7 @@ class Photo(db.Model):
 
 class ImgTag(db.Model):
     """照片标签数据模型"""
+    __tablename__ = 'imgtag'
     id = db.Column(db.Integer, primary_key=True)
     tag_name = db.Column(db.String(20), unique=True)
 

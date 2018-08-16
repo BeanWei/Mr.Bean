@@ -20,9 +20,12 @@ def creat_app(config_class=Config):
     app.config.from_object(config_class)
 
     db.init_app(app)
-    migrate.init_app(app)
+    migrate.init_app(app, db)
     login.init_app(app)
     moment.init_app(app)
+
+    from app.main import bp as main_bp
+    app.register_blueprint(main_bp, url_prefix='/')
 
     #根据生产环境决定是否保存logs信息
     if not app.debug:
@@ -30,7 +33,7 @@ def creat_app(config_class=Config):
             os.path.join(app.config['LOG_OUTPUT_PATH'], 'app.log'),
                             maxBytes=10240, backupCount=10)
         logs_file_handler.setFormatter(logging.Formatter(
-            '%(asctime)s %(levelname)s: %(messages)s'
+            '%(asctime)s %(levelname)s: %(message)s'
             '[in %(pathname)s: %(lineno)s]'))
         logs_file_handler.setLevel(logging.INFO)
         app.logger.addHandler(logs_file_handler)

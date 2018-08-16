@@ -8,7 +8,7 @@ from collections import defaultdict
 @bp.route('/', methods=['GET'])
 @bp.route('/index', methods=['GET'])
 def index():
-    photo_albums = PhotoGroup.query().order_by(PhotoGroup.ctime.desc())
+    photo_albums = PhotoGroup.query.all()
     photo_data = defaultdict(list)
     for photo_album in photo_albums:
         photo_list = Photo.query.filter(theme_id=photo_album.id, display=True)

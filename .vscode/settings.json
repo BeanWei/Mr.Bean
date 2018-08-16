@@ -1,4 +1,5 @@
 {
     "python.pythonPath": "C:\\Python\\python3.exe",
-    "git.ignoreLimitWarning": true
+    "git.ignoreLimitWarning": true,
+    "python.jediEnabled": false
 }
