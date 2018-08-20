@@ -1,8 +1,13 @@
-from flask_admin import  BaseView
+from flask import flash, redirect, url_for, render_template
+from flask_admin import expose
+from flask_admin.contrib.sqla import ModelView
 from app.models import PhotoGroup, Photo, ImgTag
+from app.admin.forms import PhotoGroupForm, PhotoForm
+from app import db
+from datetime import datetime
 
 
-class PhotoGroupView(BaseView):
+class PhotoGroupView(ModelView):
     """相册管理视图"""
     
     coloumn_list = [
@@ -19,12 +24,27 @@ class PhotoGroupView(BaseView):
         'ctime': '创建时间',
         'photos': '相片'
     }
-    
+
+    @expose('/albums', methods=['GET', 'POST'])
+    def albums(self):
+        form = PhotoGroupForm()
+
+        if form.validate_on_submit():
+            album = PhotoGroup(name=form.name.data,
+                               ctime=datetime.utcnow())
+            db.session.add(album)
+            db.session.commit()
+            flash('新相册创建成功, 快去添加相片吧!')
+            return redirect(url_for('photos'))
+        albums = PhotoGroup.query.order_by(PhotoGroup.ctime.desc())
+        return render_template('album_list.html', form=form,
+                               albums=albums.items)
+
     def __init__(self, session, **kwargs):
         super().__init__(PhotoGroup, session, **kwargs)
 
 
-class PhotoView(BaseView):
+class PhotoView(ModelView):
     """相片管理视图"""
 
     coloumn_list = [
@@ -58,7 +78,7 @@ class PhotoView(BaseView):
         super().__init__(Photo, session, **kwargs)
 
 
-class ImgTagView(BaseView):
+class ImgTagView(ModelView):
     """相片标签管理视图"""
 
     coloumn_list = ['id', 'name']
