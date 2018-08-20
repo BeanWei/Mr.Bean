@@ -1,30 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-{% block title %}
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        {% if title %}
-            {{ title }} - Mr.Bean
-        {% else %}
-            {{ Welcome to Mr.Bean }}
-        {% endif %}
-        <link rel="shortcut icon" href="/static/image/favicon.ico">
-        <link rel="stylesheet" type="text/css" href="/static/css/flickity.css"/>
-        <link rel="stylesheet" type="text/css" href="/static/css/main.css"/>
-        <link rel="stylesheet" type="text/css" href="/static/css/font-awesome.min.css"/>
-        <script src="/static/js/modernizr.custom.js"></script>
-        <style>
-            .hero > div {
-                background: #212121 url(/static/image/bg.jpg) no-repeat 50% 0;
-                -webkit-backface-visibility: hidden;
-                backface-visibility: hidden;
-            }
-        </style>
-        <img class="loader" src="../static/image/three-dots.svg" width="60" alt="Loader image"/>
-    </head>
-{% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Mr.Bean</title>
+    <link rel="shortcut icon" href="/static/image/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="/static/css/flickity.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/font-awesome.min.css"/>
+    <script src="/static/js/modernizr.custom.js"></script>
+    <style>
+        .hero > div {
+            background: #212121 url(/static/image/bg.jpg) no-repeat 50% 0;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+    </style>
+    <img class="loader" src="../static/image/three-dots.svg" width="60" alt="Loader image"/>
+</head>
+
 <body>
     <div class="hero">
         <div class="hero__back hero__back--static"></div>

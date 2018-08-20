@@ -13,6 +13,6 @@ def index():
     for photo_album in photo_albums:
         photo_list = Photo.query.filter(theme_id=photo_album.id, display=True)
         photo_data[photo_album] = photo_list
-    return render_template('photo_list.html', title='摄影集', photo_data=photo_data)
+    return render_template('photo_list.html', photo_data=photo_data)
 
 

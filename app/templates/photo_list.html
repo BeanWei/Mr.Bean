@@ -3,7 +3,7 @@
 {% block content %}
     <div class="stack-slider">
         <div class="stacks-wrapper">
-            {% for groupname,photos in photo_data.items %}
+            {% for groupname,photos in photo_data.items() %}
                 <div class="stack">
                     <h2 class="stack-title"><a href="#" data-text="{{ groupname }}"><span>{{ groupname }}</span></a>
                     </h2>
