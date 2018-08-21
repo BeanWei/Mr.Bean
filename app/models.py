@@ -8,11 +8,12 @@ class PhotoGroup(db.Model):
     __tablename__ = 'photogroup'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(128), index=True, unique=True)
+    description = db.Column(db.String(300))
     ctime = db.Column(db.DateTime, index=True, default=datetime.utcnow)
-    photos = db.relationship('Photo', backref='theme', lazy='dynamic')
+    photos = db.relationship('Photo', backref='theme')
 
     def __repr__(self):
-        return '<Photo Album {}>'.format(self.name)
+        return self.name
 
 
 
@@ -26,27 +27,27 @@ class Photo(db.Model):
     """照片数据模型"""
     __tablename__ = 'photo'
     id = db.Column(db.Integer, primary_key=True)
-    img_upload = db.Column(db.String(128))
-    img_title = db.Column(db.String(128))
-    img_context = db.Column(db.String(200))
-    img_tags = db.relationship('ImgTag',
-                                secondary=photos_tags_table, 
-                                backref='photo', lazy='dynamic')
+    link = db.Column(db.String(128))
+    title = db.Column(db.String(128))
+    context = db.Column(db.String(200))
+    tags = db.relationship('ImgTag',
+                            secondary=photos_tags_table,
+                            backref=db.backref('photo', lazy='dynamic'))
     is_top = db.Column(db.Boolean, default=False)
     like_count = db.Column(db.Integer, default=0)
     is_display = db.Column(db.Boolean, default=True)
     ctime = db.Column(db.DateTime, index=True, default=datetime.utcnow)
-    theme_id = db.Column(db.Integer, db.ForeignKey('photogroup.id'))
+    album = db.Column(db.Integer, db.ForeignKey('photogroup.id'))
 
     def __repr__(self):
-        return '<Photo {}>'.format(self.img_title)
+        return self.title
 
 
 class ImgTag(db.Model):
     """照片标签数据模型"""
     __tablename__ = 'imgtag'
     id = db.Column(db.Integer, primary_key=True)
-    tag_name = db.Column(db.String(20), unique=True)
+    name = db.Column(db.String(20), unique=True)
 
     def __repr__(self):
-        return '<ImgTag {}>'.format(self.tag_name)
+        return self.name
