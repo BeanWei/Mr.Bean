@@ -16,7 +16,6 @@ class PhotoGroup(db.Model):
         return self.name
 
 
-
 photos_tags_table = db.Table(
     'photos_tags',
     db.Column('img_id', db.Integer, db.ForeignKey('photo.id')),

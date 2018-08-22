@@ -1,13 +1,22 @@
-from flask import flash, redirect, url_for, render_template
-from flask_admin import expose
+from flask import flash, redirect, url_for, render_template, session
+from flask_admin import expose, BaseView
 from flask_admin.contrib.sqla import ModelView
 from app.models import PhotoGroup, Photo, ImgTag
 from app.admin.forms import PhotoGroupForm, PhotoForm, ImgTagForm
 from app import db
 from datetime import datetime
+from .github import github
 
 
-class PhotoGroupView(ModelView):
+class AuthView(ModelView):
+    def _handle_view(self, name, **kwargs):
+        if 'github_token' in session:
+            me = github.get('user')
+            return me
+        return redirect(url_for('github.login'))
+
+
+class PhotoGroupView(AuthView):
     """相册管理视图"""
     
     column_list = [
@@ -46,7 +55,7 @@ class PhotoGroupView(ModelView):
         super().__init__(PhotoGroup, session, **kwargs)
 
 
-class PhotoView(ModelView):
+class PhotoView(AuthView):
     """相片管理视图"""
 
     column_list = [
@@ -104,7 +113,7 @@ class PhotoView(ModelView):
         super().__init__(Photo, session, **kwargs)
 
 
-class ImgTagView(ModelView):
+class ImgTagView(AuthView):
     """相片标签管理视图"""
 
     column_list = ['id', 'name']
@@ -126,3 +135,9 @@ class ImgTagView(ModelView):
 
     def __init__(self, session, **kwargs):
         super().__init__(ImgTag, session, **kwargs)
+
+
+# class LogoutView(BaseView):
+#     @expose('/logout')
+#     def index(self):
+#         return redirect(url_for('main.index'))

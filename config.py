@@ -12,3 +12,5 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     LOG_OUTPUT_PATH = os.environ.get('LOG_OUTPUT_PATH') or \
         os.path.join(basedir, './logs')
+    Client_ID = os.environ.get('Client_ID')
+    Client_secret = os.environ.get('Client_secret')

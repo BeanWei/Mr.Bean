@@ -24,6 +24,9 @@ def creat_app(config_class=Config):
     #app.register_blueprint(main_bp, url_prefix='/')
     app.register_blueprint(main_bp)
 
+    from app.admin import bp as github_bp
+    app.register_blueprint(github_bp)
+
     #根据生产环境决定是否保存logs信息
     if not app.debug:
         logs_file_handler = RotatingFileHandler(
