@@ -21,7 +21,8 @@ def creat_app(config_class=Config):
     moment.init_app(app)
 
     from app.main import bp as main_bp
-    app.register_blueprint(main_bp, url_prefix='/')
+    #app.register_blueprint(main_bp, url_prefix='/')
+    app.register_blueprint(main_bp)
 
     #根据生产环境决定是否保存logs信息
     if not app.debug:

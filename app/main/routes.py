@@ -15,4 +15,3 @@ def index():
         photo_data[photo_album] = photo_list
     return render_template('photo_list.html', photo_data=photo_data)
 
-
