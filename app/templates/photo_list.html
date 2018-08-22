@@ -16,17 +16,17 @@
                                         <span class="item__date">{{ photo.ctime }}</span>
                                     </h3>
                                     <div class="item__details">
-                                        <ul>
+                                        <ul class="left-context">
                                             <li>
-                                                <i class="icon icon-aperture"></i>
+                                                <i class="icon-leaf"></i>
                                                 <span> {{ photo.context }}</span>
                                             </li>
-                                            <li>
-                                                <i class="icon icon-aperture"></i>
+                                            <li class="like">
+                                                <i class="icon-heart"></i>
                                                 <span> {{ photo.like_count }}</span>
                                             </li>
                                             <li>
-                                                <i class="icon icon-aperture"></i>
+                                                <i class="icon-tags"></i>
                                                 {% for tag in photo.tags.all %}
                                                     <span> {{ tag }} </span>
                                                 {% endfor %}
