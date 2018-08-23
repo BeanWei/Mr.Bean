@@ -1,5 +1,6 @@
 from flask import flash, redirect, url_for, render_template, session
 from flask_admin import expose, BaseView
+from flask_admin.base import MenuLink
 from flask_admin.contrib.sqla import ModelView
 from app.models import PhotoGroup, Photo, ImgTag
 from app.admin.forms import PhotoGroupForm, PhotoForm, ImgTagForm
@@ -10,10 +11,10 @@ from .github import github
 
 class AuthView(ModelView):
     def _handle_view(self, name, **kwargs):
-        if 'github_token' in session:
-            me = github.get('user')
-            return me
-        return redirect(url_for('github.login'))
+        if 'github_token' not in session:
+            return redirect(url_for('github.login'))
+        if github.get('user').data.get('id') != 33516660:
+            return redirect(url_for('github.login'))
 
 
 class PhotoGroupView(AuthView):
@@ -136,8 +137,3 @@ class ImgTagView(AuthView):
     def __init__(self, session, **kwargs):
         super().__init__(ImgTag, session, **kwargs)
 
-
-# class LogoutView(BaseView):
-#     @expose('/logout')
-#     def index(self):
-#         return redirect(url_for('main.index'))

@@ -1,0 +1,20 @@
+{% extends 'admin/base.html' %}
+
+{% block access_control %}
+{% if session.get('github_token') %}
+<div class="navbar-text btn-group pull-right">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+        <i class="glyphicon glyphicon-user"></i>
+        {% if github.get('user') -%}
+        {{ github.get('user').data.login }}
+        {%- endif %}<span class="caret"></span></a>
+    <ul class="dropdown-menu" role="menu">
+        <li><a href="{{ url_for('github.logout') }}">退出</a></li>
+    </ul>
+</div>
+{% else %}
+<div class="navbar-text btn-group pull-right" style="margin-top: 5px;">
+    <a class="btn btn-info btn-sm" role="button" href="{{ url_for('github.login') }}">登录</a>
+</div>
+{% endif %}
+{% endblock %}

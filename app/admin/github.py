@@ -1,4 +1,4 @@
-from flask import url_for, session, redirect, request, jsonify, current_app
+from flask import url_for, session, redirect, request, flash, current_app
 from flask_oauthlib.client import OAuth
 from app.admin import bp
 import os
@@ -19,12 +19,14 @@ github = oauth.remote_app(
 
 @bp.route('/login')
 def login():
+    flash('登录成功')
     return github.authorize(callback=url_for('github.authorize', _external=True))
 
 
 @bp.route('/logout')
 def logout():
     session.pop('github_token', None)
+    flash('已退出···')
     return redirect(url_for('main.index'))
 
 
@@ -38,8 +40,7 @@ def authorize():
             resp
         )
     session['github_token'] = (resp['access_token'], '')
-    me = github.get('user')
-    return jsonify(me.data)
+    return redirect(url_for('admin.index'))
 
 
 @github.tokengetter
