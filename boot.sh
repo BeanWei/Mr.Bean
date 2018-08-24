@@ -1,5 +1,5 @@
 #!/bin/sh
-
+source venv/bin/activate
 while true; do
     flask db upgrade
     if [[ "$?" == "0" ]]; then
@@ -9,4 +9,4 @@ while true; do
     sleep 5
 done
 
-exec flask run
+exec gunicorn -b :5000 --access-logfile - --error-logfile - manager:app

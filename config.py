@@ -11,6 +11,6 @@ class Config:
         'mysql:///' + os.path.join(basedir, 'app.sql')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     LOG_OUTPUT_PATH = os.environ.get('LOG_OUTPUT_PATH') or \
-        os.path.join(basedir, './logs')
+        os.path.join(basedir, './logs/app_server_logs')
     Client_ID = os.environ.get('Client_ID')
     Client_secret = os.environ.get('Client_secret')

@@ -1,0 +1,12 @@
+server {
+    listen 80;
+    # server_name 207.148.94.244:80;
+    location / {
+        proxy_pass http://localhost:8000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+    location /static/ {
+        alias /home/blog/MrBean/app/static/;
+    }
+}
