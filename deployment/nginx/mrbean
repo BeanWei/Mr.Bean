@@ -1,6 +1,6 @@
 server {
     listen 80;
-    # server_name 207.148.94.244:80;
+    server_name www.bean.cf bean.cf;
     location / {
         proxy_pass http://localhost:8000;
         proxy_set_header Host $host;
